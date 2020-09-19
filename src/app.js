@@ -12,13 +12,16 @@ app.get('/help',(req,res)=>
 {
     res.send('How can we help you?')
 })
+
+app.get('/weather',(req,res)=>
+{
+    res.send('Weather page')
+})
+
 app.get('/about',(req,res)=>
 {
     res.send('About page')
 })
-//app.com
-//app.com/help
-//app.com/about
 
 app.listen(3000, () =>
 {
