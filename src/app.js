@@ -9,7 +9,39 @@ const app = express()
 
 const pubDirPath = path.join(__dirname,'../public')
 
+app.set('view engine', 'hbs')
+
 app.use(express.static(pubDirPath))
+app.get('',(req,res) =>
+{
+    res.render('index', {
+
+        title:'Weather',
+        name: 'Pierre'
+    })
+
+
+})
+app.get('/about',(req,res) =>
+{
+    res.render('about', {
+
+        title:'about',
+        name: 'Pierre'
+    })
+
+
+})
+app.get('/help',(req,res) =>
+{
+    res.render('help', {
+
+        title:'help',
+        name: 'Pierre'
+    })
+
+
+})
 
 
 
