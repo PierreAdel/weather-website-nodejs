@@ -1,4 +1,6 @@
 const path = require('path')
+const geocode = require('./utilis/geocode')
+const forecast = require('./utilis/forecast')
 
 const express = require('express')
 const hbs = require('hbs')
@@ -41,6 +43,25 @@ app.get('/about',(req,res) =>
 
 
 })
+
+app.get('/products',(req,res) =>
+{
+    if (!req.query.search)
+    {
+        return res.send({
+            error: 'provide a search term'
+        })
+    }
+
+    console.log(req.query.bla)
+    res.send({
+
+        products: []
+
+    })
+
+})
+
 app.get('/help',(req,res) =>
 {
     res.render('help', {
@@ -51,7 +72,7 @@ app.get('/help',(req,res) =>
 
 
 })
-app.get('/help*',(req,res)=>
+app.get('/help/*',(req,res)=>
 {
     res.render('404page', {
         title:'404 Help article not found',
@@ -62,10 +83,40 @@ app.get('/help*',(req,res)=>
 
 app.get('/weather',(req,res)=>
 {
-    res.send({
-        temp: 12,
-        precip: '0%'
+    if(!req.query.address)
+    {
+        return res.send({
+            errorMsg: 'no address provided'
+
+        })
+
+    }
+
+    geocode(req.query.address,(error, {latitude,longitude,location} = {}) => 
+    {
+        if(error)
+        {
+            return res.send({error})   
+        }
+
+        forecast(latitude, longitude, (error, forecastdata) => 
+        {
+
+            if(error)
+        {
+            return res.send({ error  })   
+        }
+        res.send({
+            condition: forecastdata,
+            location: location,
+            addressProvided: req.query.address
+        })
+        })
+        
+       
+
     })
+  
 })
 
 app.get('*',(req,res)=>
@@ -78,10 +129,6 @@ app.get('*',(req,res)=>
    })
 })
 
-app.get('*',(req,res)=>
-{
-   res.send('404 page not found!')
-})
 
 app.listen(3000, () =>
 {
