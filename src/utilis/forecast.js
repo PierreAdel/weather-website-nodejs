@@ -8,7 +8,7 @@ const forecast = (latitude,longitude,callback) =>
   {
     if(error)
     {
-      callback("unable to connect to weather service!", undefined)}
+      callback("Unable to connect to weather service!", undefined)}
     else if(body.success === false)
     {
       callback("Undefined location", undefined)
@@ -21,7 +21,8 @@ const forecast = (latitude,longitude,callback) =>
         precip : body.current.precip,
         condition : body.current.weather_descriptions[0]
       }
-      callback(undefined,data)
+      const msg= "It is currently "+ data.condition+", and the temprature is "+ data.temp+"°C with "+data.precip+ " % chance of rain."
+      callback(undefined,msg)
     }
 
   })

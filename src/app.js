@@ -104,7 +104,7 @@ app.get('/weather',(req,res)=>
 
             if(error)
         {
-            return res.send({ error  })   
+            return res.send({error})   
         }
         res.send({
             condition: forecastdata,
