@@ -32,7 +32,7 @@ weatherForm.addEventListener('submit', (e) =>
 
         }
         messageOne.textContent ="Location: "+ data.location
-        messageTwo.textContent ="Condition: "+ data.condition
+        messageTwo.textContent =""+ data.condition
        
     })
 })
