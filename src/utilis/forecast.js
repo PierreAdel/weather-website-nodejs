@@ -19,9 +19,10 @@ const forecast = (latitude,longitude,callback) =>
       const data = {
         temp : body.current.temperature,
         precip : body.current.precip,
-        condition : body.current.weather_descriptions[0]
+        condition : body.current.weather_descriptions[0], 
+        localtime: body.location.localtime
       }
-      const msg= "It is currently "+ data.condition+", and the temprature is "+ data.temp+"°C with "+data.precip+ " % chance of rain."
+      const msg= "It is currently "+ data.condition+", and the temprature is "+ data.temp+"°C with "+data.precip+ " % chance of rain. \n The local time is "+data.localtime
       callback(undefined,msg)
     }
 
